@@ -11,6 +11,9 @@
 <meta property="og:title" content="FinanceOS — Split, Track & Grow Your Money" />
 <meta property="og:description" content="Split group expenses, manage your khata, hit savings goals, and get AI insights. One app for all your money." />
 <meta property="og:type" content="website" />
+<meta property="og:image" content="logo.png" />
+<link rel="icon" type="image/png" href="logo.png" />
+<link rel="apple-touch-icon" href="logo.png" />
 
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -56,8 +59,10 @@ nav{position:sticky;top:0;z-index:50;transition:.3s}
 nav.scrolled{background:rgba(10,10,18,.72);backdrop-filter:blur(18px);border-bottom:1px solid var(--edge)}
 .nav-in{display:flex;align-items:center;justify-content:space-between;height:72px}
 .logo{display:flex;align-items:center;gap:11px;font-family:'Baloo 2';font-weight:800;font-size:21px}
-.logo .mark{width:38px;height:38px;border-radius:11px;display:grid;place-items:center;font-size:20px;
+.logo .mark{width:38px;height:38px;border-radius:11px;display:grid;place-items:center;font-size:14px;font-weight:800;
   background:linear-gradient(135deg,var(--violet),var(--indigo));box-shadow:0 8px 24px rgba(124,58,237,.45)}
+.logo .mark-img{width:40px;height:40px;border-radius:11px;object-fit:cover;
+  box-shadow:0 8px 24px rgba(124,58,237,.45);background:#0c0a14}
 .nav-links{display:flex;gap:30px;align-items:center}
 .nav-links a{color:var(--sub);font-size:15px;font-weight:500;transition:.2s}
 .nav-links a:hover{color:var(--text)}
@@ -178,6 +183,52 @@ footer{padding:50px 0 40px;border-top:1px solid var(--edge);margin-top:40px}
 /* ── Reveal ──────────────────────────────────────────────────────── */
 .reveal{opacity:0;transform:translateY(30px);transition:opacity .7s,transform .7s}
 .reveal.in{opacity:1;transform:none}
+
+/* ── Mobile responsive ───────────────────────────────────────────── */
+@media(max-width:920px){
+  section{padding:64px 0}
+  .phone{width:280px;height:570px}
+}
+@media(max-width:600px){
+  .wrap{padding:0 18px}
+  section{padding:54px 0}
+  .nav-in{height:62px}
+  .logo{font-size:18px}
+  .hero{padding:30px 0 46px;gap:30px}
+  .hero h1{font-size:clamp(34px,9vw,46px)}
+  .hero p.lead{font-size:15.5px;margin:18px auto 26px}
+  .pill{margin-bottom:18px;font-size:12px}
+  .hero-cta .btn{flex:1;justify-content:center;min-width:0}
+  .trust{gap:14px 20px;margin-top:28px}
+  .trust .t{font-size:13px}
+  .sec-h{font-size:clamp(26px,7vw,34px)}
+  .sec-sub{font-size:15px;margin-bottom:38px}
+  .card{padding:22px}
+  .card .ico{width:48px;height:48px;font-size:22px}
+  .split{gap:34px}
+  .visual{padding:22px;min-height:0}
+  .cta-box{padding:42px 22px;border-radius:26px}
+  .cta-box p{font-size:16px}
+  .foot{flex-direction:column;text-align:center;gap:16px}
+  /* Phone: shrink + pull floating cards inward so nothing overflows */
+  .phone{width:256px;height:520px;border-radius:40px}
+  .screen{border-radius:31px}
+  .fc-1{left:-6px;top:64px}
+  .fc-2{right:-4px;bottom:88px}
+  .float-card{padding:10px 12px;border-radius:14px}
+}
+@media(max-width:380px){
+  .hero h1{font-size:32px}
+  .phone{width:230px;height:470px}
+  .app-ui{padding:42px 13px 13px}
+  .fc-1,.fc-2{display:none}        /* avoid overflow on very small screens */
+  .btn{padding:12px 16px;font-size:13.5px}
+}
+/* Touch devices: no hover tilt, keep a gentle resting angle */
+@media(hover:none){
+  .phone{transform:rotateY(-4deg) rotateX(2deg) !important}
+  .card:hover{box-shadow:none}
+}
 </style>
 </head>
 <body>
@@ -190,7 +241,12 @@ footer{padding:50px 0 40px;border-top:1px solid var(--edge);margin-top:40px}
 <!-- ── Nav ── -->
 <nav id="nav">
   <div class="wrap nav-in">
-    <div class="logo"><span class="mark">💸</span> FinanceOS</div>
+    <div class="logo">
+      <img class="mark-img" src="logo.png" alt="FinanceOS logo"
+           onerror="this.style.display='none';this.nextElementSibling.style.display='grid'">
+      <span class="mark" style="display:none">FOS</span>
+      FinanceOS
+    </div>
     <div class="nav-links">
       <a href="#features">Features</a>
       <a href="#why">Why us</a>
@@ -330,7 +386,12 @@ footer{padding:50px 0 40px;border-top:1px solid var(--edge);margin-top:40px}
 <!-- ── Footer ── -->
 <footer>
   <div class="wrap foot">
-    <div class="logo" style="font-size:18px"><span class="mark" style="width:32px;height:32px;font-size:17px">💸</span> FinanceOS</div>
+    <div class="logo" style="font-size:18px">
+      <img class="mark-img" src="logo.png" alt="FinanceOS logo" style="width:32px;height:32px"
+           onerror="this.style.display='none';this.nextElementSibling.style.display='grid'">
+      <span class="mark" style="width:32px;height:32px;font-size:12px;display:none">FOS</span>
+      FinanceOS
+    </div>
     <div class="foot-links">
       <a href="#features">Features</a>
       <a href="#why">Why us</a>
@@ -365,32 +426,36 @@ document.getElementById('yr').textContent=new Date().getFullYear();
 const nav=document.getElementById('nav');
 addEventListener('scroll',()=>nav.classList.toggle('scrolled',scrollY>20));
 
-// 3D phone parallax tilt (follows cursor)
+// 3D effects only on hover-capable (desktop) devices — avoids stuck
+// transforms on touchscreens.
+const canHover = window.matchMedia('(hover:hover)').matches;
 const phone=document.getElementById('phone');
-const stage=phone.closest('.phone-stage');
-let raf;
-stage.addEventListener('mousemove',e=>{
-  const r=stage.getBoundingClientRect();
-  const x=(e.clientX-r.left)/r.width-0.5;
-  const y=(e.clientY-r.top)/r.height-0.5;
-  cancelAnimationFrame(raf);
-  raf=requestAnimationFrame(()=>{
-    phone.style.transform=`rotateY(${x*22}deg) rotateX(${-y*16}deg)`;
-  });
-});
-stage.addEventListener('mouseleave',()=>{phone.style.transform='rotateY(-6deg) rotateX(3deg)';});
-phone.style.transform='rotateY(-6deg) rotateX(3deg)';
 
-// 3D tilt on feature cards
-document.querySelectorAll('[data-tilt]').forEach(card=>{
-  card.addEventListener('mousemove',e=>{
-    const r=card.getBoundingClientRect();
+if(canHover){
+  const stage=phone.closest('.phone-stage');
+  let raf;
+  stage.addEventListener('mousemove',e=>{
+    const r=stage.getBoundingClientRect();
     const x=(e.clientX-r.left)/r.width-0.5;
     const y=(e.clientY-r.top)/r.height-0.5;
-    card.style.transform=`perspective(800px) rotateY(${x*10}deg) rotateX(${-y*10}deg) translateY(-4px)`;
+    cancelAnimationFrame(raf);
+    raf=requestAnimationFrame(()=>{
+      phone.style.transform=`rotateY(${x*22}deg) rotateX(${-y*16}deg)`;
+    });
   });
-  card.addEventListener('mouseleave',()=>card.style.transform='');
-});
+  stage.addEventListener('mouseleave',()=>{phone.style.transform='rotateY(-6deg) rotateX(3deg)';});
+  phone.style.transform='rotateY(-6deg) rotateX(3deg)';
+
+  document.querySelectorAll('[data-tilt]').forEach(card=>{
+    card.addEventListener('mousemove',e=>{
+      const r=card.getBoundingClientRect();
+      const x=(e.clientX-r.left)/r.width-0.5;
+      const y=(e.clientY-r.top)/r.height-0.5;
+      card.style.transform=`perspective(800px) rotateY(${x*10}deg) rotateX(${-y*10}deg) translateY(-4px)`;
+    });
+    card.addEventListener('mouseleave',()=>card.style.transform='');
+  });
+}
 
 // Scroll reveal
 const io=new IntersectionObserver(es=>{
