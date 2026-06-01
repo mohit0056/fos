@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>FinanceOS — Split, Track & Grow Your Money</title>
+<meta name="description" content="FinanceOS is the all-in-one money app: split group expenses, run your business khata, set savings goals, and get AI-powered insights — all in one beautiful place." />
+<meta name="theme-color" content="#0A0A12" />
+
+<!-- Social preview -->
+<meta property="og:title" content="FinanceOS — Split, Track & Grow Your Money" />
+<meta property="og:description" content="Split group expenses, manage your khata, hit savings goals, and get AI insights. One app for all your money." />
+<meta property="og:type" content="website" />
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+
+<style>
+:root{
+  --violet:#7C3AED; --violet-light:#9D6FF8; --indigo:#6366F1;
+  --gold:#D4AF37; --green:#22C55E; --amber:#F59E0B;
+  --bg:#0A0A12; --bg2:#120F22; --card:#16131F; --card2:#1C1830;
+  --edge:rgba(255,255,255,.08); --edge2:rgba(255,255,255,.04);
+  --text:#F4F2FF; --sub:#9A93B8; --muted:#6E6890;
+  --radius:22px; --max:1180px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  font-family:'Inter',system-ui,sans-serif;
+  background:var(--bg); color:var(--text);
+  overflow-x:hidden; line-height:1.6; -webkit-font-smoothing:antialiased;
+}
+h1,h2,h3,.display{font-family:'Baloo 2',cursive;font-weight:800;letter-spacing:-.5px;line-height:1.1}
+a{color:inherit;text-decoration:none}
+.wrap{max-width:var(--max);margin:0 auto;padding:0 24px}
+.grad-text{background:linear-gradient(120deg,var(--violet-light),var(--indigo) 60%,#22D3EE);-webkit-background-clip:text;background-clip:text;color:transparent}
+
+/* ── Animated background ─────────────────────────────────────────── */
+.bg-fx{position:fixed;inset:0;z-index:-2;background:
+  radial-gradient(1200px 600px at 80% -10%, rgba(124,58,237,.18), transparent 60%),
+  radial-gradient(900px 500px at -10% 110%, rgba(99,102,241,.16), transparent 60%),
+  linear-gradient(180deg,var(--bg2),var(--bg));}
+.grid-fx{position:fixed;inset:0;z-index:-2;opacity:.4;
+  background-image:linear-gradient(rgba(255,255,255,.025) 1px,transparent 1px),
+  linear-gradient(90deg,rgba(255,255,255,.025) 1px,transparent 1px);
+  background-size:54px 54px;mask-image:radial-gradient(ellipse 80% 60% at 50% 0%,#000,transparent 75%)}
+.orb{position:fixed;border-radius:50%;filter:blur(60px);z-index:-1;opacity:.55;animation:float 14s ease-in-out infinite}
+.orb.a{width:380px;height:380px;background:radial-gradient(circle,var(--violet),transparent 70%);top:-60px;right:-40px}
+.orb.b{width:420px;height:420px;background:radial-gradient(circle,var(--indigo),transparent 70%);bottom:-120px;left:-80px;animation-delay:-5s}
+@keyframes float{0%,100%{transform:translateY(0) translateX(0)}50%{transform:translateY(40px) translateX(20px)}}
+
+/* ── Nav ─────────────────────────────────────────────────────────── */
+nav{position:sticky;top:0;z-index:50;transition:.3s}
+nav.scrolled{background:rgba(10,10,18,.72);backdrop-filter:blur(18px);border-bottom:1px solid var(--edge)}
+.nav-in{display:flex;align-items:center;justify-content:space-between;height:72px}
+.logo{display:flex;align-items:center;gap:11px;font-family:'Baloo 2';font-weight:800;font-size:21px}
+.logo .mark{width:38px;height:38px;border-radius:11px;display:grid;place-items:center;font-size:20px;
+  background:linear-gradient(135deg,var(--violet),var(--indigo));box-shadow:0 8px 24px rgba(124,58,237,.45)}
+.nav-links{display:flex;gap:30px;align-items:center}
+.nav-links a{color:var(--sub);font-size:15px;font-weight:500;transition:.2s}
+.nav-links a:hover{color:var(--text)}
+.btn{display:inline-flex;align-items:center;gap:9px;font-weight:700;font-family:'Baloo 2';cursor:pointer;
+  border:none;border-radius:14px;padding:13px 22px;font-size:15px;transition:transform .2s,box-shadow .2s;white-space:nowrap}
+.btn-primary{background:linear-gradient(120deg,var(--violet),var(--indigo));color:#fff;box-shadow:0 10px 30px rgba(124,58,237,.4)}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 16px 40px rgba(124,58,237,.55)}
+.btn-ghost{background:rgba(255,255,255,.05);border:1px solid var(--edge);color:var(--text)}
+.btn-ghost:hover{background:rgba(255,255,255,.1);transform:translateY(-2px)}
+@media(max-width:780px){.nav-links{display:none}}
+
+/* ── Hero ────────────────────────────────────────────────────────── */
+.hero{padding:70px 0 90px;display:grid;grid-template-columns:1.05fr .95fr;gap:40px;align-items:center}
+.pill{display:inline-flex;align-items:center;gap:8px;padding:8px 15px;border-radius:30px;font-size:13px;font-weight:600;
+  color:var(--violet-light);background:rgba(124,58,237,.12);border:1px solid rgba(124,58,237,.3);margin-bottom:24px}
+.pill .dot{width:7px;height:7px;border-radius:50%;background:var(--green);box-shadow:0 0 10px var(--green)}
+.hero h1{font-size:clamp(40px,6vw,68px)}
+.hero p.lead{color:var(--sub);font-size:clamp(16px,2vw,19px);margin:22px 0 32px;max-width:540px}
+.hero-cta{display:flex;gap:14px;flex-wrap:wrap}
+.trust{display:flex;gap:26px;margin-top:38px;flex-wrap:wrap}
+.trust .t{display:flex;align-items:center;gap:9px;color:var(--sub);font-size:14px;font-weight:500}
+.trust .t b{color:var(--text)}
+@media(max-width:920px){.hero{grid-template-columns:1fr;text-align:center;padding:50px 0 70px}
+  .hero p.lead{margin-left:auto;margin-right:auto}.hero-cta,.trust{justify-content:center}}
+
+/* ── 3D Phone ────────────────────────────────────────────────────── */
+.phone-stage{perspective:1400px;display:grid;place-items:center}
+.phone{width:300px;height:610px;border-radius:46px;position:relative;transform-style:preserve-3d;
+  transition:transform .15s ease-out;
+  background:linear-gradient(160deg,#211B33,#100D1C);
+  border:1px solid rgba(255,255,255,.1);
+  box-shadow:0 50px 90px -30px rgba(0,0,0,.8),0 0 0 11px #0c0a14,0 0 0 12px rgba(255,255,255,.05),
+    inset 0 1px 1px rgba(255,255,255,.12);
+  animation:phoneIn 1s cubic-bezier(.2,.7,.3,1) both}
+@keyframes phoneIn{from{opacity:0;transform:rotateY(-22deg) rotateX(8deg) translateY(30px)}}
+.phone .notch{position:absolute;top:16px;left:50%;transform:translateX(-50%);width:120px;height:26px;background:#0c0a14;border-radius:16px;z-index:3}
+.screen{position:absolute;inset:11px;border-radius:36px;overflow:hidden;background:linear-gradient(180deg,#14111F,#0B0913)}
+.float-card{position:absolute;border-radius:18px;padding:14px 16px;backdrop-filter:blur(8px);transform-style:preserve-3d;
+  background:rgba(28,24,48,.85);border:1px solid var(--edge);box-shadow:0 20px 50px -15px rgba(0,0,0,.7)}
+.fc-1{top:90px;left:-46px;transform:translateZ(60px);animation:bob 5s ease-in-out infinite}
+.fc-2{bottom:120px;right:-40px;transform:translateZ(80px);animation:bob 5s ease-in-out infinite .8s}
+@keyframes bob{0%,100%{transform:translateZ(60px) translateY(0)}50%{transform:translateZ(60px) translateY(-12px)}}
+
+/* faux app screen */
+.app-ui{padding:46px 16px 16px;color:#fff;height:100%;display:flex;flex-direction:column;gap:12px}
+.app-top{display:flex;justify-content:space-between;align-items:center}
+.app-top .hi{font-size:11px;color:var(--sub)}.app-top .nm{font-family:'Baloo 2';font-weight:800;font-size:16px}
+.app-av{width:34px;height:34px;border-radius:11px;background:linear-gradient(135deg,var(--violet),var(--indigo))}
+.balance{border-radius:20px;padding:18px;background:linear-gradient(135deg,rgba(124,58,237,.35),rgba(99,102,241,.18));border:1px solid rgba(124,58,237,.3)}
+.balance small{color:var(--sub);font-size:10px}.balance .amt{font-family:'Baloo 2';font-weight:800;font-size:28px;margin-top:2px}
+.balance .row{display:flex;gap:8px;margin-top:14px}
+.chip{flex:1;background:rgba(0,0,0,.25);border-radius:12px;padding:8px;text-align:center}
+.chip b{font-family:'Baloo 2';font-size:13px}.chip span{font-size:9px;color:var(--sub);display:block}
+.list{display:flex;flex-direction:column;gap:9px;margin-top:2px}
+.li{display:flex;align-items:center;gap:11px;background:rgba(255,255,255,.04);border:1px solid var(--edge2);border-radius:14px;padding:10px}
+.li .ic{width:34px;height:34px;border-radius:10px;display:grid;place-items:center;font-size:16px;background:rgba(124,58,237,.18)}
+.li .tx{flex:1}.li .tx b{font-size:12px;font-weight:600;display:block}.li .tx span{font-size:9.5px;color:var(--sub)}
+.li .val{font-family:'Baloo 2';font-weight:700;font-size:13px}
+.val.pos{color:var(--green)}.val.neg{color:#FB7185}
+
+/* ── Section header ──────────────────────────────────────────────── */
+section{padding:80px 0}
+.eyebrow{color:var(--violet-light);font-weight:700;font-size:14px;letter-spacing:1.5px;text-transform:uppercase;text-align:center}
+.sec-h{font-size:clamp(30px,4.5vw,46px);text-align:center;margin:14px 0 16px}
+.sec-sub{color:var(--sub);text-align:center;max-width:620px;margin:0 auto 56px;font-size:17px}
+
+/* ── Feature cards (3D tilt) ─────────────────────────────────────── */
+.features{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+@media(max-width:920px){.features{grid-template-columns:1fr 1fr}}
+@media(max-width:600px){.features{grid-template-columns:1fr}}
+.card{position:relative;border-radius:var(--radius);padding:28px;transform-style:preserve-3d;transition:transform .2s ease-out,box-shadow .3s;
+  background:linear-gradient(165deg,var(--card2),var(--card));border:1px solid var(--edge);overflow:hidden}
+.card::before{content:'';position:absolute;inset:0;border-radius:inherit;padding:1px;opacity:0;transition:.3s;
+  background:linear-gradient(120deg,var(--violet),var(--indigo));-webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask-composite:exclude}
+.card:hover::before{opacity:1}
+.card:hover{box-shadow:0 30px 60px -25px rgba(124,58,237,.5)}
+.card .ico{width:54px;height:54px;border-radius:15px;display:grid;place-items:center;font-size:26px;margin-bottom:18px;transform:translateZ(40px);
+  background:linear-gradient(135deg,rgba(124,58,237,.25),rgba(99,102,241,.15));border:1px solid rgba(124,58,237,.3)}
+.card h3{font-size:20px;margin-bottom:9px;transform:translateZ(28px)}
+.card p{color:var(--sub);font-size:14.5px;transform:translateZ(18px)}
+
+/* ── Highlight split ─────────────────────────────────────────────── */
+.split{display:grid;grid-template-columns:1fr 1fr;gap:50px;align-items:center}
+@media(max-width:880px){.split{grid-template-columns:1fr}}
+.split h2{font-size:clamp(28px,4vw,40px);margin-bottom:18px}
+.split p{color:var(--sub);font-size:16px;margin-bottom:24px}
+.checks{display:flex;flex-direction:column;gap:14px}
+.check{display:flex;gap:13px;align-items:flex-start}
+.check .ck{flex:none;width:26px;height:26px;border-radius:8px;display:grid;place-items:center;font-size:14px;background:rgba(34,197,94,.15);color:var(--green);border:1px solid rgba(34,197,94,.3)}
+.check b{font-weight:600}.check span{color:var(--sub);font-size:14px}
+.visual{position:relative;border-radius:26px;padding:30px;min-height:340px;
+  background:linear-gradient(165deg,var(--card2),var(--card));border:1px solid var(--edge);overflow:hidden}
+.stat-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.stat{background:rgba(255,255,255,.03);border:1px solid var(--edge2);border-radius:18px;padding:18px}
+.stat .n{font-family:'Baloo 2';font-weight:800;font-size:30px}
+.stat .l{color:var(--sub);font-size:13px;margin-top:2px}
+
+/* ── Steps ───────────────────────────────────────────────────────── */
+.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+@media(max-width:780px){.steps{grid-template-columns:1fr}}
+.step{position:relative;border-radius:var(--radius);padding:30px;background:linear-gradient(165deg,var(--card2),var(--card));border:1px solid var(--edge)}
+.step .num{font-family:'Baloo 2';font-weight:800;font-size:46px;background:linear-gradient(120deg,var(--violet-light),var(--indigo));-webkit-background-clip:text;background-clip:text;color:transparent;line-height:1;margin-bottom:12px}
+.step h3{font-size:19px;margin-bottom:8px}.step p{color:var(--sub);font-size:14.5px}
+
+/* ── CTA ─────────────────────────────────────────────────────────── */
+.cta-box{position:relative;border-radius:34px;padding:64px 40px;text-align:center;overflow:hidden;
+  background:linear-gradient(135deg,rgba(124,58,237,.25),rgba(99,102,241,.15));border:1px solid rgba(124,58,237,.35)}
+.cta-box::after{content:'';position:absolute;width:500px;height:500px;border-radius:50%;background:radial-gradient(circle,rgba(124,58,237,.4),transparent 70%);top:-50%;left:50%;transform:translateX(-50%);filter:blur(40px);z-index:0}
+.cta-box>*{position:relative;z-index:1}
+.cta-box h2{font-size:clamp(30px,5vw,48px);margin-bottom:16px}
+.cta-box p{color:var(--sub);font-size:18px;margin-bottom:32px}
+
+/* ── Footer ──────────────────────────────────────────────────────── */
+footer{padding:50px 0 40px;border-top:1px solid var(--edge);margin-top:40px}
+.foot{display:flex;justify-content:space-between;align-items:center;gap:20px;flex-wrap:wrap;color:var(--muted);font-size:14px}
+.foot-links{display:flex;gap:24px}.foot-links a{color:var(--sub)}.foot-links a:hover{color:var(--text)}
+
+/* ── Reveal ──────────────────────────────────────────────────────── */
+.reveal{opacity:0;transform:translateY(30px);transition:opacity .7s,transform .7s}
+.reveal.in{opacity:1;transform:none}
+</style>
+</head>
+<body>
+
+<div class="bg-fx"></div>
+<div class="grid-fx"></div>
+<div class="orb a"></div>
+<div class="orb b"></div>
+
+<!-- ── Nav ── -->
+<nav id="nav">
+  <div class="wrap nav-in">
+    <div class="logo"><span class="mark">💸</span> FinanceOS</div>
+    <div class="nav-links">
+      <a href="#features">Features</a>
+      <a href="#why">Why us</a>
+      <a href="#how">How it works</a>
+      <a href="#get">Download</a>
+    </div>
+    <button class="btn btn-primary" data-app-link>Get the App ↓</button>
+  </div>
+</nav>
+
+<!-- ── Hero ── -->
+<header class="wrap hero">
+  <div class="reveal">
+    <span class="pill"><span class="dot"></span> Now available — split, track &amp; save</span>
+    <h1>All your money,<br><span class="grad-text">beautifully organized.</span></h1>
+    <p class="lead">FinanceOS brings group expense splitting, your business khata, savings goals and an AI finance assistant into one stunning app. Stop juggling spreadsheets — start growing.</p>
+    <div class="hero-cta">
+      <button class="btn btn-primary" data-app-link>⬇️ Download Now</button>
+      <a class="btn btn-ghost" href="#features">Explore features →</a>
+    </div>
+    <div class="trust">
+      <div class="t">🔒 <span><b>Bank-grade</b> security</span></div>
+      <div class="t">🌍 <span><b>Multi-currency</b></span></div>
+      <div class="t">🤖 <span><b>AI</b> insights</span></div>
+    </div>
+  </div>
+
+  <!-- 3D Phone -->
+  <div class="phone-stage reveal">
+    <div class="phone" id="phone">
+      <div class="notch"></div>
+      <div class="screen">
+        <div class="app-ui">
+          <div class="app-top">
+            <div><div class="hi">Good evening 👋</div><div class="nm">Alex</div></div>
+            <div class="app-av"></div>
+          </div>
+          <div class="balance">
+            <small>TOTAL BALANCE</small>
+            <div class="amt">₹ 48,250</div>
+            <div class="row">
+              <div class="chip"><b style="color:var(--green)">+₹12.4k</b><span>You're owed</span></div>
+              <div class="chip"><b style="color:#FB7185">-₹3.1k</b><span>You owe</span></div>
+            </div>
+          </div>
+          <div class="list">
+            <div class="li"><div class="ic">🍕</div><div class="tx"><b>Goa Trip · Dinner</b><span>Split with 4 friends</span></div><div class="val neg">-₹620</div></div>
+            <div class="li"><div class="ic">📒</div><div class="tx"><b>Khata · Sharma Store</b><span>Payment received</span></div><div class="val pos">+₹1,500</div></div>
+            <div class="li"><div class="ic">🎯</div><div class="tx"><b>Goal · New Laptop</b><span>72% funded</span></div><div class="val">₹54k</div></div>
+            <div class="li"><div class="ic">🪙</div><div class="tx"><b>Daily streak bonus</b><span>+5 coins earned</span></div><div class="val pos">+5</div></div>
+          </div>
+        </div>
+      </div>
+      <div class="float-card fc-1">
+        <div style="font-size:11px;color:var(--sub)">Settled up ✅</div>
+        <div style="font-family:'Baloo 2';font-weight:800;font-size:15px">₹2,400 cleared</div>
+      </div>
+      <div class="float-card fc-2">
+        <div style="font-size:11px;color:var(--sub)">AI Insight 🤖</div>
+        <div style="font-family:'Baloo 2';font-weight:800;font-size:14px">Save ₹3k on food</div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- ── Features ── -->
+<section id="features" class="wrap">
+  <div class="reveal">
+    <div class="eyebrow">Everything in one app</div>
+    <h2 class="sec-h">Features that <span class="grad-text">just work</span></h2>
+    <p class="sec-sub">From splitting a dinner bill to running your shop's ledger — FinanceOS replaces five apps with one.</p>
+  </div>
+  <div class="features">
+    <div class="card reveal" data-tilt><div class="ico">👥</div><h3>Split Group Expenses</h3><p>Create groups for trips, flatmates or office. Add expenses, split equally or custom, and settle up with simplified debts.</p></div>
+    <div class="card reveal" data-tilt><div class="ico">📒</div><h3>Business Khata</h3><p>Track customers, credits &amp; payments, generate invoices, send reminders, and view aging reports — your digital ledger.</p></div>
+    <div class="card reveal" data-tilt><div class="ico">🎯</div><h3>Savings Goals</h3><p>Set goals, automate deposits, round up spare change, and build an emergency fund with smart auto-rules.</p></div>
+    <div class="card reveal" data-tilt><div class="ico">🤖</div><h3>AI Finance Assistant</h3><p>Chat with your money. Get insights, cashflow forecasts and budget advice powered by AI — in plain language.</p></div>
+    <div class="card reveal" data-tilt><div class="ico">📊</div><h3>Rich Analytics</h3><p>Beautiful charts, category breakdowns, spending heatmaps and monthly trends. Export to PDF or CSV anytime.</p></div>
+    <div class="card reveal" data-tilt><div class="ico">🪙</div><h3>Coins &amp; Rewards</h3><p>Earn coins from daily streaks and rewarded ads, then unlock boosts and premium perks. Money that's fun.</p></div>
+  </div>
+</section>
+
+<!-- ── Why / split ── -->
+<section id="why" class="wrap">
+  <div class="split">
+    <div class="reveal">
+      <div class="eyebrow" style="text-align:left">Why FinanceOS</div>
+      <h2>Built to feel effortless,<br>designed to look <span class="grad-text">gorgeous</span>.</h2>
+      <p>Every screen is crafted for clarity and speed. Real-time sync keeps your groups and ledgers up to date across devices.</p>
+      <div class="checks">
+        <div class="check"><div class="ck">✓</div><div><b>Real-time everything</b><br><span>Live balances, instant group updates, and push notifications.</span></div></div>
+        <div class="check"><div class="ck">✓</div><div><b>Private &amp; secure</b><br><span>PIN &amp; biometric lock, session control, and encrypted storage.</span></div></div>
+        <div class="check"><div class="ck">✓</div><div><b>Works your way</b><br><span>Multi-currency, light &amp; dark themes, and offline-friendly.</span></div></div>
+      </div>
+    </div>
+    <div class="visual reveal">
+      <div class="stat-grid">
+        <div class="stat"><div class="n grad-text">5-in-1</div><div class="l">Apps replaced</div></div>
+        <div class="stat"><div class="n grad-text">&lt;1s</div><div class="l">To add an expense</div></div>
+        <div class="stat"><div class="n grad-text">100%</div><div class="l">Real-time sync</div></div>
+        <div class="stat"><div class="n grad-text">7+</div><div class="l">Currencies</div></div>
+      </div>
+      <div style="margin-top:18px;padding:16px;border-radius:16px;background:rgba(124,58,237,.12);border:1px solid rgba(124,58,237,.3);font-size:14px;color:var(--sub)">
+        💜 “Finally an app that handles both my trips with friends <b style="color:var(--text)">and</b> my shop's khata.”
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── How it works ── -->
+<section id="how" class="wrap">
+  <div class="reveal">
+    <div class="eyebrow">Get started in minutes</div>
+    <h2 class="sec-h">Three steps to <span class="grad-text">financial calm</span></h2>
+    <p class="sec-sub">No setup headaches. Sign up and you're tracking in under a minute.</p>
+  </div>
+  <div class="steps">
+    <div class="step reveal"><div class="num">01</div><h3>Create your account</h3><p>Quick sign-up with a simple human check — no waiting on emails. You're in instantly.</p></div>
+    <div class="step reveal"><div class="num">02</div><h3>Add groups or khata</h3><p>Invite friends to a group or add customers to your ledger. Everyone stays in sync in real time.</p></div>
+    <div class="step reveal"><div class="num">03</div><h3>Track, split &amp; grow</h3><p>Log expenses, settle balances, hit savings goals, and let AI surface ways to save more.</p></div>
+  </div>
+</section>
+
+<!-- ── CTA ── -->
+<section id="get" class="wrap">
+  <div class="cta-box reveal">
+    <h2>Ready to take control<br>of your money?</h2>
+    <p>Download FinanceOS and turn financial chaos into clarity — for free.</p>
+    <div style="display:flex;gap:14px;justify-content:center;flex-wrap:wrap">
+      <button class="btn btn-primary" style="padding:16px 30px;font-size:17px" data-app-link>⬇️ Download FinanceOS</button>
+      <a class="btn btn-ghost" style="padding:16px 30px;font-size:17px" href="#features">See features</a>
+    </div>
+    <div style="margin-top:18px;font-size:13px;color:var(--muted)">Free to start • No credit card • Available now</div>
+  </div>
+</section>
+
+<!-- ── Footer ── -->
+<footer>
+  <div class="wrap foot">
+    <div class="logo" style="font-size:18px"><span class="mark" style="width:32px;height:32px;font-size:17px">💸</span> FinanceOS</div>
+    <div class="foot-links">
+      <a href="#features">Features</a>
+      <a href="#why">Why us</a>
+      <a href="#get">Download</a>
+    </div>
+    <div>© <span id="yr"></span> FinanceOS. Crafted with 💜</div>
+  </div>
+</footer>
+
+<script>
+/* ════════════════════════════════════════════════════════════════════
+   👉 PASTE YOUR APP DOWNLOAD LINK HERE
+   (Google Play URL, App Store URL, or a direct .apk download link)
+   ════════════════════════════════════════════════════════════════════ */
+const APP_LINK = "https://drive.google.com/uc?export=download&id=1jEa0BmWM7VCvNmazO9ZELQ7NQFjajYgq";
+
+// Wire every download button to the link (opens in new tab).
+document.querySelectorAll('[data-app-link]').forEach(el=>{
+  el.addEventListener('click',()=>{
+    if(!APP_LINK || APP_LINK==="REPLACE_WITH_YOUR_APP_LINK"){
+      alert("Download link coming soon! 🚀");
+      return;
+    }
+    window.open(APP_LINK,'_blank','noopener');
+  });
+});
+
+// Year
+document.getElementById('yr').textContent=new Date().getFullYear();
+
+// Nav background on scroll
+const nav=document.getElementById('nav');
+addEventListener('scroll',()=>nav.classList.toggle('scrolled',scrollY>20));
+
+// 3D phone parallax tilt (follows cursor)
+const phone=document.getElementById('phone');
+const stage=phone.closest('.phone-stage');
+let raf;
+stage.addEventListener('mousemove',e=>{
+  const r=stage.getBoundingClientRect();
+  const x=(e.clientX-r.left)/r.width-0.5;
+  const y=(e.clientY-r.top)/r.height-0.5;
+  cancelAnimationFrame(raf);
+  raf=requestAnimationFrame(()=>{
+    phone.style.transform=`rotateY(${x*22}deg) rotateX(${-y*16}deg)`;
+  });
+});
+stage.addEventListener('mouseleave',()=>{phone.style.transform='rotateY(-6deg) rotateX(3deg)';});
+phone.style.transform='rotateY(-6deg) rotateX(3deg)';
+
+// 3D tilt on feature cards
+document.querySelectorAll('[data-tilt]').forEach(card=>{
+  card.addEventListener('mousemove',e=>{
+    const r=card.getBoundingClientRect();
+    const x=(e.clientX-r.left)/r.width-0.5;
+    const y=(e.clientY-r.top)/r.height-0.5;
+    card.style.transform=`perspective(800px) rotateY(${x*10}deg) rotateX(${-y*10}deg) translateY(-4px)`;
+  });
+  card.addEventListener('mouseleave',()=>card.style.transform='');
+});
+
+// Scroll reveal
+const io=new IntersectionObserver(es=>{
+  es.forEach(en=>{if(en.isIntersecting){en.target.classList.add('in');io.unobserve(en.target);}});
+},{threshold:.12});
+document.querySelectorAll('.reveal').forEach((el,i)=>{
+  el.style.transitionDelay=(i%3*0.08)+'s';
+  io.observe(el);
+});
+</script>
+</body>
+</html>
